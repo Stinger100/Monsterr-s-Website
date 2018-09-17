@@ -1,0 +1,67 @@
+body {
+    background-color: ghostwhite;
+    font-family: SansSerif;
+}
+#footer {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+.vertical-central{
+    min-height: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+}
+.jumbotron {
+    background-image: url('../style/img/IMG_1856.JPG');
+    background-size: cover;
+
+}
+.lead {
+
+    font-size: 20px;
+}
+h2 {
+    text-align: center;
+}
+.img-thumbnail {
+ margin-top: 20px;
+    border-style: none;
+}
+p-features {
+    margin-top: 20px ;
+}
+.aboutimg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+.nav-link {
+    color: whitesmoke;
+}
+.navbar  {
+    background-color: black !important;
+    position: fixed;
+    width: 100%;
+}
+.abouth1 {
+    margin-top: 100px;
+}
+.navbar-brand{
+    color: whitesmoke;
+}
+.display-4 {
+    margin-top: 50px;
+}
+h2 {
+    margin-top: 30px;
+}
+.rounded {
+    margin-top: 40px;
+}
+.pabout{
+    margin-top: 30px;
+}
