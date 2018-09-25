@@ -1,0 +1,44 @@
+<% include partials/header.ejs %>
+<% include partials/sidebar.ejs%>
+<div class="container">
+    <div class="row">
+        <div class="block m-auto txt-center">
+            <h1 class="abouth1">Install Network Module</h1>
+        </div>
+    </div>
+    <hr class="my-4" id="hrinstall">
+    <div class="row">
+        <p class="pinstall">
+            The module is a good support for admin client, because it gives the admin the possibility to see how the clients engaged in the
+            game are connected. The module can be intialized in just 3 steps</p>
+    </div>
+    <div class="text-center">
+        <img src="/style/img/graphh.jpg" class="rounded" alt="graph">
+    </div>
+    <h4 class="pinstall">Setup</h4>
+    <ol class="ollatency">
+        <li>The first step is installing the via.js module in the terminal</li>
+        <div class="installcomands"><p> npm install vis</p></div>
+
+        <li>Now, you need to import the module in server.js and to move network out of createServer in order to declare it
+         as a local variable. Then, you need to add the server commands to the Network Module.</li>
+    <div class="installcomands"><p> import {NetworkModule} from './src/modules/NetworkModule'</p>
+    <p> let network = Network.pairs(8)</p>
+        <p> NetworkModule.addServerCommands(commands, network)</p>
+    </div>
+    <li>On the last step, you need to add the import module in admin-client.js file. The module is declared between events and before the
+        server is created. Add the setupClient after the admin-client is created.
+    </li>
+    <div class="installcomands"><p> import {NetworkModule} from './src/modules/NetworkModule'</p>
+                                <p> NetworkModule.addAdminClientEvents(events)</p>
+                                <p> NetworkModule.setupClient(admin)</p>
+    </div>
+    </ol>
+    <h4 class="pinstall">Overview</h4>
+    <p class="pinstall">
+        In order to get a better understanding of how Network Module works, we suggest you to see the source code by clicking
+       on the <a href="https://github.com/asbjoern1982/monsterr-modules/blob/master/src/modules/LatencyModule.js">Github link</a>.
+    </p>
+
+</div>
+<% include partials/footer %>

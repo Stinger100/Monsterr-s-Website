@@ -1,0 +1,53 @@
+<% include partials/header.ejs %>
+<% include partials/sidebar.ejs%>
+<div class="container">
+    <div class="row">
+        <div class="block m-auto txt-center">
+            <h1 class="abouth1">Install Latency Module</h1>
+        </div>
+    </div>
+    <hr class="my-4" id="hrinstall">
+    <div class="row">
+        <p class="pinstall">
+            The module represents a good feature, that comes in support of the admin client of the game, which will display the latency
+            represented by a graphic of all the clients that are envolved in the game. The graphic offers a great visual experience for the
+        admin clients and the graphic keeps the admin updated by new changes of the latency on every 5 seconds.</p>
+    </div>
+    <div class="text-center">
+        <img src="/style/img/latency.png" class="rounded" alt="latency">
+    </div>
+
+    <h4 class="pinstall">Setup</h4>
+    <ol class="ollatency">
+  <li>
+        The first step is to install chart.js module in the terminal
+</li>
+    <div class="installcomands"><p> npm install chart.js</p></div>
+
+       <li>
+           In server.js file, you will need to import the Latency Module. The Module needs to be declared as a command before the server is declared.
+       </li>
+        <div class="installcomands"><p> import {LatencyModule} from './src/modules/LatencyModule'</p>
+                                    <p>  LatencyModule.addServerCommands(commands)</p>
+        </div>
+
+        <li>
+            In admin-client.js file, you need to import the Latency Module. It is declared between events and before the server is created.
+            The last step where you need declare the module, is when the admin-client is declared.
+        </li>
+        <div class="installcomands"><p> import {LatencyModule} from './src/modules/LatencyModule'</p>
+            <p>  LatencyModule.addAdminClientEvents(events)</p>
+            <p> LatencyModule.setupClient(admin)</p>
+        </div>
+    </ol>
+    <h4 class="pinstall">Overview</h4>
+    <p class="pinstall">
+        In order to get a better understanding of how Latency Module works, we strongly recommend you to click on
+        <a href="https://github.com/asbjoern1982/monsterr-modules/blob/master/src/modules/LatencyModule.js">Github link</a> to see all the
+        structure of the module.
+    </p>
+
+
+</div>
+
+<% include partials/footer %>
