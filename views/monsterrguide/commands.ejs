@@ -1,0 +1,85 @@
+<% include ../partials/header.ejs %>
+<% include ../partials/sidebar.ejs %>
+<div class="container">
+    <div class="row">
+        <div class="block m-auto txt-center">
+            <h1 class="abouth1">Commands</h1>
+        </div>
+    </div>
+    <hr class="my-4" id="hrinstall">
+    <p class="pinstall">Using commands you can very simply support users issuing commands through the chat interface. Commands are very similar to events.</p>
+    <p class="pinstall">A command is issued by the user simply by prefacing their chat message with a /</p>
+    <div class="installcomands">
+        <p>/myCmd argument1 argument2</p>
+    </div>
+    <p class="pinstall">A command is first handled by the client if there is a matching <em>handler</em>. Should this handler return <strong>false</strong>, nothing further happens.</p>
+    <p class="pinstall">If there is no handler on the client OR the handler didn't return <strong>false</strong>, the command is automatically sent to the server where it executes any matching handler.</p>
+    <div class="installcomands">
+        <p id="comment">// client side</p>
+        <p><em id="red">let</em> commands <em id="red">=</em>{ </p>
+        <p>&ensp;<em id="purple">myCmd</em> (monsterr, <em id="red">...args</em>) { </p>
+        <p>&ensp; &ensp; <em id="red">...</em> </p>
+        <p id="comment">&ensp; &ensp; // return false  <-- would stop the command from being sent to server as well</p>
+        <p>&ensp;}</p>
+        <p>}</p>
+        <p id="comment"> //server side</p>
+        <p><em id="red">let</em> commands <em id="red">=</em> { </p>
+        <p>&ensp;<em id="purple">myCmd</em> (monsterr, clientId, <em id="red">...args</em> ) { </p>
+        <p>&ensp; &ensp; <em id="red">...</em> </p>
+        <p>&ensp; }</p>
+        <p>}</p>
+    </div>
+    <div class="row">
+        <h4 class="pinstall">Example</h4>
+    </div>
+    <p class="pinstall">Suppose you would like to let users add stuff like this: (why wouldn't you?)</p>
+    <div class="installcomands">
+        <p>/add 1 2 3</p>
+    </div>
+    <p class="pinstall">You could do it client side and write the result to the chat:</p>
+    <div class="installcomands">
+        <p id="comment">// client.js</p>
+        <p><em id="red">let</em> commands <em id="red">=</em> { </p>
+        <p>&ensp;<em id="purple">add</em> (monsterr, <em id="red">...args</em>) { </p>
+        <p>&ensp;&ensp;<em id="red">let</em> result <em id="red">=</em> args.<em id="purple">reduce</em>((sum, arg) <em id="red">=></em> sum <em id="red">+</em> <em id="command">Number</em>(arg), <em id="command">0</em>)</p>
+        <p id="comment">&ensp;&ensp;// Display in chat</p>
+        <p>&ensp;&ensp;monsterr.chat.<em id="command">append</em>(resuult, 'Calculator') </p>
+        <p>&ensp;&ensp;<em id="red">return</em> <em id="command">false</em> <em id="comment">// Don't send command on to server</em> </p>
+        <p>&ensp;}</p>
+        <p>}</p>
+    </div>
+    <p class="pinstall">Or you could do it server side and log the result:</p>
+    <div class="installcomands">
+        <p id="comment">// server.js</p>
+        <p><em id="red">let</em> commands <em id="red">=</em> { </p>
+        <p>&ensp;<em id="purple">add</em> (monsterr,clientId, <em id="red">...args</em>) {</p>
+        <p>&ensp;&ensp;<em id="red">let</em> result <em id="red">=</em> args.<em id="purple">reduce</em>((sum, arg) <em id="red">=></em> sum <em id="red">+</em> <em id="command">Number</em>(arg), <em id="command">0</em>) </p>
+        <p>&ensp;&ensp;monsterr.<em id="purple">log</em>('added', { args, result }) </p>
+        <p>&ensp;}</p>
+        <p>}</p>
+    </div>
+    <p class="pinstall">Or you could do both, simply by omitting the <em>return false</em> client side.</p>
+    <div class="row">
+        <h4 class="pinstall">Built-in commands</h4>
+    </div>
+    <p class="pinstall"><strong>Client</strong></p>
+    <p class="pinstall">From the regular client you can issue the following commands:</p>
+    <ul class="pinstall">
+        <li><em>/clear</em>: Clears the chat.</li>
+        <li><em>/id</em>: Prints clients id to chat.</li>
+        <li><em>/name [name]</em>: Names the client in chat (doesn't change id).</li>
+    </ul>
+    <p class="pinstall"><strong>Admin</strong></p>
+    <p class="pinstall">From the admin client you can issue any of the regular client commands <strong>PLUS</strong> the following:</p>
+    <ul class="pinstall">
+        <li><em>/start</em>: Will start the game (if not already started).</li>
+        <li><em>/next</em>: Will force game to next stage.</li>
+        <li><em>/reset</em>: Will end current stage and reset game.</li>
+    </ul>
+    <p class="pinstall">In addition you can use the rather plain:</p>
+    <ul class="pinstall">
+        <li><em>/players</em>: Writes a list of current players (ids) to admin chat.</li>
+        <li><em>/latencies</em>: Writes a stringified version of latency map to admin chat.</li>
+    </ul>
+    <p class="pinstall">If you want to list players or their latencies more than for debugging now and then you will probably do well to implement an interface displaying these instead.</p>
+</div>

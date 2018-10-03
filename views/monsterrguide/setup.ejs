@@ -1,0 +1,91 @@
+<% include ../partials/header.ejs %>
+<% include ../partials/sidebar.ejs %>
+<div class="container">
+    <div class="row">
+        <div class="block m-auto txt-center">
+            <h1 class="abouth1">Monsterr structure</h1>
+        </div>
+    </div>
+    <hr class="my-4" id="hrinstall">
+    <div class="row">
+        <h4 class="pinstall">Client</h4>
+    </div>
+        <p class="pinstall">
+            On the client-side, you configure options, define event and command handlers.
+        </p>
+
+   <div class="installcomands">
+       <p id="comment">// client.js</p>
+       <p><em id="red">import</em> createClient <em id="red">from</em> 'monsterr'</p>
+       <p id="comment">// optionally overwrite some default option/settings</p>
+       <p><em id="red">let</em> options <em id="red">=</em> { <p>
+       <p>&ensp;<em id="red"> ... </em> </p>
+       <p>} </p>
+       <p id="comment">optionally define event handlers</p>
+       <p><em id="red">let</em> events <em id="red">=</em> {</p>
+       <p>&ensp;<em id="red"> ... </em></p>
+       <p>}</p>
+       <p id="comment">optionally define command handlers</p>
+       <p><em id="red"> let</em> commands<em id="red">=</em> {</p>
+       <p>&ensp;<em id="red">...</em> </p>
+       <p>}</p>
+       <p id="comment">// createClient creates the monsterr object with the specified parameters.</p>
+       <p><em id="red">const</em> <em id="command"> monsterrClient</em><em id="red"> =</em> <em id="purple">createClient</em>({</p>
+       <p>&ensp;options, </p>
+       <p>&ensp;events,</p>
+       <p>&ensp;commands</p>
+       <p>})</p>
+    </div>
+    <div class="row">
+        <h4 class="pinstall">Server</h4>
+    </div>
+<p class="pinstall">Server-side behaves similar to client.</p>
+<div class="installcomands">
+    <p id="comment">// server.js</p>
+    <p><em id="red">import</em> createServer <em id="red">from</em> 'monsterr'</p>
+    <p id="comment">// optionally overwrite some default option/settings</p>
+    <p><em id="red">let</em> options <em id="red">=</em> { <p>
+    <p>&ensp;<em id="red">...</em></p>
+    <p>} </p>
+    <p id="comment">optionally define event handlers</p>
+    <p><em id="red">let</em> events <em id="red">=</em> {</p>
+    <p>&ensp;<em id="red">...</em></p>
+    <p>}</p>
+    <p id="comment">optionally define command handlers</p>
+    <p><em id="red">let</em> commands = {</p>
+    <p>&ensp;<em id="red">...</em></p>
+    <p>}</p>
+    <p id="comment">// createServer creates the server.</p>
+    <p><em id="red">const</em><em id="command"> monsterrServer </em><em id="red">=</em> <em id="purple">createServer</em> ({</p>
+    <p>&ensp;options,</p>
+    <p>&ensp;events,</p>
+    <p>&ensp;commands</p>
+    <p>})</p>
+    <p id="comment">// start the server</p>
+    <p>monsterrServer.<em id="purple"> run</em>()</p>
+</div>
+    <div class="row">
+        <h4 class="pinstall">What's the difference?</h4>
+    </div>
+    <p class="pinstall">
+        <strong>Monsterr</strong> behaves different whether we are server-side or client-side. By some black magic the exports available
+        from<strong> monsterr </strong>differ from server to client, but both expose functionality that is common to client and server.
+    </p>
+    <div class="row">
+        <h4 class="pinstall">Server</h4>
+    </div>
+    <div class="installcomands">
+        <p>&ensp;createServer (default)</p>
+        <p>&ensp;Network</p>
+        <p>&ensp;Stages</p>
+        <p>&ensp;Events</p>
+    </div>
+    <div class="row">
+        <h4 class="pinstall">Client</h4>
+    </div>
+    <div class="installcomands">
+        <p>&ensp;createClient (default)</p>
+        <p>&ensp;Stages</p>
+        <p>&ensp;Events</p>
+    </div>
+</div>

@@ -1,0 +1,125 @@
+<% include ../partials/header.ejs %>
+<% include ../partials/sidebar.ejs %>
+<div class="container">
+    <div class="row">
+        <div class="block m-auto txt-center">
+            <h1 class="abouth1">Network</h1>
+        </div>
+    </div>
+    <hr class="my-4" id="hrinstall">
+    <p class="pinstall" id="note">Notice: Network is only exposed server-side. It should only be used to set up the server.</p>
+    <p class="pinstall">Every <em>monsterr</em> game uses a network to define how clients are connected to each other. Each node in the network represents a client.</p>
+    <p class="pinstall">By default<em>monsterr</em> is configured with <em>Network.pairs(16)</em>. You can use any other configuration you like.</p>
+    <div class="installcomands">
+        <p><em id="red">import</em> { Network } <em id="red">from</em> 'monsterr' </p>
+        <p id="comment">// Using matrix</p>
+        <p><em id="red">let</em> myNetwork = Network.<em id="purple">fromAdjacencyMatrix</em>([ </p>
+        <p>&ensp; [<em id="command">1</em>, <em id="command">1</em>, <em id="command">0</em>, <em id="command">0</em>],</p>
+        <p>&ensp; [<em id="command">1</em>, <em id="command">1</em>, <em id="command">0</em>, <em id="command">1</em>],</p>
+        <p>&ensp; [<em id="command">0</em>, <em id="command">0</em>, <em id="command">1</em>, <em id="command">0</em>],</p>
+        <p>&ensp; [<em id="command">0</em>, <em id="command">1</em>, <em id="command">0</em>, <em id="command">1</em>]</p>
+        <p>])</p>
+        <p id="comment">// Using list (equivalent network configuration) </p>
+        <p><em id="red">let</em> myNetwork = Network.<em id="purple">fromAdjacencyList</em>([ </p>
+        <p>&ensp; [<em id="command">1</em> ],</p>
+        <p>&ensp; [<em id="command">0</em>, <em id="command">3</em>],</p>
+        <p>&ensp; [],</p>
+        <p>&ensp; [<em id="command">1</em> ]</p>
+        <p>])</p>
+        <p id="comment">// Using defaults (these all require a playerCount, ex: 6)</p>
+        <p><em id="red">let</em> myNetwork = Network.<em id="purple">circular</em>(<em id="command">6, 2</em>) <em id="comment"> // playerCount, noOfNeighbours</em> </p>
+        <p><em id="red">let</em> myNetwork = Network.<em id="purple">groups</em>(<em id="command">6, 2</em>) <em id="comment"> // playerCount, groupSize</em> </p>
+        <p><em id="red">let</em> myNetwork = Network.<em id="purple">clique</em>(<em id="command">6</em>) <em id="comment"> // playerCount</em> </p>
+        <p><em id="red">let</em> myNetwork = Network.<em id="purple">pqirs</em>(<em id="command">6</em>) <em id="comment"> // playerCount</em> </p>
+        <p><em id="red">let</em> myNetwork = Network.<em id="purple">solo</em>(<em id="command">6</em>) <em id="comment"> // playerCount</em> </p>
+        <br>
+        <p id="comment">// make the server use it</p>
+        <p><em id="red">const</em> <em id="command">monsterrServer</em> = <em id="purple">createServer</em> ({</p>
+        <p>&ensp; network: myNetwork</p>
+        <p>})</p>
+    </div>
+    <p class="pinstall">Notice that it is perfectly possible to use an asymmetrical Adjacency matrix or list which means that<strong>directed graphs are supported just the same as undirected.</strong></p>
+    <div class="installcomands">
+        <p id="comment">// directed one-way circular graph</p>
+        <p><em id="red">let</em> myNetwork = Network.<em id="purple">fromAdjacencyList</em>([</p>
+        <p>&ensp; [<em id="command">1</em>],</p>
+        <p>&ensp; [<em id="command">2</em>],</p>
+        <p>&ensp; [<em id="command">3</em>],</p>
+        <p>&ensp; [<em id="command">4</em>],</p>
+        <p>&ensp; [<em id="command">0</em>]</p>
+    </div>
+    <p class="pinstall"><strong>Accessing players</strong></p>
+    <p class="pinstall">You can access current players through <em>monsterrServer</em> directly:</p>
+    <div class="installcomands">
+        <p>monsterrServer.<em id="purple">getPlayers</em>() <em id="comment">// returns list of players (ids)</em></p>
+    </div>
+    <div class="row">
+        <h4 class="pinstall">Proposal (THIS IS NOT IMPLEMENTED)</h4>
+    </div>
+    <p class="pinstall">The current implementation only allows for a set number of clients. I propose supporting a variable number of clients. The way I would approach that is using a <em>grow</em> function that specifies how a network grows.</p>
+<div class="installcomands">
+    <p><em id="red">let</em> myNetwork = Network.<em id="purple">fromAdjacencyList</em>( </p>
+    <p>&ensp; [], <em id="comment">// some initial network configuration (Adjacency list)</em> </p>
+    <p>&ensp; (adjList) <em id="red">=></em> {</p>
+    <p id="comment">&ensp; &ensp; // Optional function that takes in the current adjList and returns a new larger one. This defines how the network grows.</p>
+    <p id="comment">&ensp; &ensp; //It is automatically called when needed. </p>
+    <br>
+    <p id="comment">&ensp; &ensp; //Example: add one unconnected node </p>
+    <p>&ensp; &ensp; <em id="red">return</em> </p>
+    <p>&ensp; &ensp; &ensp; <em id="red">...</em>adjList, </p>
+    <p>&ensp; &ensp; &ensp; [] <em id="comment"> // next node will have no neighbours</em></p>
+    <p>&ensp; &ensp; ]</p>
+    <br>
+    <p id="comment">&ensp; &ensp;  // Example: add a node that is connected to to the prev one and a random one beside that</p>
+    <p><em id="red">&ensp; &ensp; let</em> randomNode = <em id="command">Math.floor</em>(<em id="command">Math.random</em>() <em id="red">* </em> adjList.<em id="command">length</em> <em id="red">-</em> <em id="command">1</em> </p>
+    <p>&ensp; &ensp; &ensp; <em id="red">...</em>adjList, </p>
+    <p>&ensp; &ensp; &ensp; [adjList.<em id="command">length</em> <em id="red">- </em> <em id="command">1</em>, randomNode] </p>
+    <p>&ensp; &ensp; ]</p>
+    <br>
+    <p id="comment">&ensp; &ensp;  // Example: add multiple nodes</p>
+    <p>&ensp; &ensp; <em id="red">return</em> [</p>
+    <p>&ensp; &ensp; &ensp; <em id="red">...</em>adjList, </p>
+    <p>&ensp; &ensp;&ensp; [],</p>
+    <p>&ensp; &ensp;&ensp; [],</p>
+    <p>&ensp; &ensp;&ensp; []</p>
+    <p>&ensp; &ensp; ]</p>
+    <br>
+    <p id="comment">&ensp; &ensp; // Example: add a new node, but make all current ones connect to it</p>
+    <p>&ensp; &ensp; <em id="red">let</em> newNode = adjList.<em id="command">length</em> </p>
+    <p>&ensp; &ensp; <em id="red">return</em> [ </p>
+    <p>&ensp; &ensp; &ensp; <em id="red">...</em>adjList.<em id="purple">map</em>(neighbours <em id="red">=></em> [<em id="red">...</em>neighbours, newNode]) </p>
+    <p>&ensp; &ensp;&ensp; []</p>
+    <p>&ensp; &ensp; ]</p>
+    <p>&ensp; }</p>
+    <p>)</p>
+</div>
+    <p class="pinstall">It should be possible to define the default network types using initial adjLists and <em>grow</em> functions. That way they could simply be used as:</p>
+    <div class="installcomands">
+        <p><em id="red">let</em> myNetwork = Network.<em id="purple">circular</em>(<em id="command">2</em>) <em id="comment">// noOfNeighbours</em> </p>
+        <p><em id="red">let</em> myNetwork = Network.<em id="purple">groups</em>(<em id="command">2</em>) <em id="comment">// groupSize</em> </p>
+        <p><em id="red">let</em> myNetwork = Network.<em id="purple">clique</em>()</p>
+        <p><em id="red">let</em> myNetwork = Network.<em id="purple">pairs</em>()</p>
+        <p><em id="red">let</em> myNetwork = Network.<em id="purple">solo</em>()</p>
+    </div>
+    <p class="pinstall">This might be paired with a <em>maxPlayers</em> optional setting/option that allows us to define an absolute maximum.</p>
+    <p class="pinstall">As an example <em>pairs</em> could be implemented similar to this:</p>
+    <div class="installcomands">
+        <p><em id="red">let</em> pairsNetwork = Network.<em id="purple">fromAdjacencyList(</em> </p>
+        <p id="comment">&ensp; // start off with one pair </p>
+        <p>&ensp; [</p>
+        <p>&ensp; &ensp; [<em id="command">1</em>],</p>
+        <p>&ensp; &ensp; [<em id="command">0</em>]</p>
+        <p>&ensp; ],</p>
+        <p id="comment">&ensp;  // add a new separate pair when growing </p>
+        <p>&ensp; (adjList) <em id="red">=></em> {</p>
+        <p>&ensp; &ensp; <em id="red">let</em> lastElement = adjList.<em id="command">length</em> <em id="red">-</em> <em id="command">1</em> </p>
+        <br>
+        <p>&ensp; &ensp; <em id="red">return</em> [ </p>
+        <p>&ensp; &ensp; &ensp;  <em id="red">...</em>adjList, </p>
+        <p>&ensp; &ensp; &ensp; [lastElement <em id="red">+</em> <em id="command">2</em>], </p>
+        <p>&ensp; &ensp; &ensp; [lastElement <em id="red">+</em> <em id="command">1</em>] </p>
+        <p>&ensp; &ensp; ]</p>
+        <p>&ensp; }</p>
+        <p>)</p>
+    </div>
+</div>

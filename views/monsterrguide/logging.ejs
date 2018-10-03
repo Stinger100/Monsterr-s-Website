@@ -1,0 +1,60 @@
+<% include ../partials/header.ejs %>
+<% include ../partials/sidebar.ejs %>
+<div class="container">
+    <div class="row">
+        <div class="block m-auto txt-center">
+            <h1 class="abouth1">Logging</h1>
+        </div>
+    </div>
+    <hr class="my-4" id="hrinstall">
+    <p class="pinstall">
+        Logging works exactly the same on server and client side, but the actual logs are of course stored on the server.
+        On both sides logging is done through <em>monsterr.log</em> .
+    </p>
+    <p class="pinstall" id="note">Logging uses <a href="https://github.com/winstonjs/winston">winston</a> internally.</p>
+    <div class="row">
+        <h4 class="pinstall">Options</h4>
+    </div>
+    <p class="pinstall">The default log file can be set through <em>monsterr.options</em> .</p>
+    <div class="installcomands">
+        <p>monsterr.<em id="command">options</em> = {</p>
+        <p>&ensp; default_log_file: 'default'</p>
+        <p>}</p>
+    </div>
+    <div class="row">
+        <h4 class="pinstall">Default</h4>
+    </div>
+    <p class="pinstall">
+        The simplest possible log statement. Logs a message to the default log file.
+    </p>
+    <div class="installcomands">
+        <p id="comment">// logs to default.log</p>
+        <p>monsterr.<em id="purple">log</em>(message)</p>
+    </div>
+
+    <div class="row">
+        <h4 class="pinstall">Other log files</h4>
+    </div>
+    <p class="pinstall">
+        You can use multiple log files and for each log statement determine what file to write to.
+    </p>
+    <div class="installcomands">
+        <p id="comment">// logs to messages.log</p>
+        <p>monsterr.<em id="purple">log</em>(message, 'messages')</p>
+    </div>
+
+    <div class="row">
+        <h4 class="pinstall">Extra data</h4>
+    </div>
+    <p class="pinstall">
+        It is possible to log extra data. Simply supply it as the last argument. It is important that you supply it in JSON format.
+    </p>
+    <div class="installcomands">
+        <p id="comment">// default.log</p>
+        <p>monsterr.<em id="purple">log</em>(message, { something: 'extra' })</p>
+        <br>
+        <p id="comment">// messages.log</p>
+        <p>monsterr.<em id="purple">log</em>(message, 'messages', { something: 'extra' })</p>
+    </div>
+
+</div>

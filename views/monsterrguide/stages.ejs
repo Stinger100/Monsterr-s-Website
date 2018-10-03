@@ -1,0 +1,201 @@
+<% include ../partials/header.ejs %>
+<% include ../partials/sidebar.ejs %>
+<div class="container">
+    <div class="row">
+        <div class="block m-auto txt-center">
+            <h1 class="abouth1">Stages</h1>
+        </div>
+    </div>
+    <hr class="my-4" id="hrinstall">
+    <p class="pinstall" id="note"><em>create-monsterr-game</em> includes a sample stage. It might be easier to follow the sample than the documentation alone.</p>
+    <p class="pinstall">A stage is a relatively isolatable part of a game and a game consists of a sequence of stages.</p>
+    <div class="row">
+        <h4 class="pinstall">
+            Structure
+        </h4>
+    </div>
+    <p class="pinstall">Stages are usually structured like this:</p>
+    <div class="installcomands">
+        <p>|____ src</p>
+        <p>| |____stages</p>
+        <p>| | |____stage1</p>
+        <p>| | | |____client.js</p>
+        <p>| | | |____server.js</p>
+        <p>| | | |____stage1.html</p>
+        <p>| | | |____stage1.css</p>
+        <p>| | |____stage2</p>
+        <p>| | |____stage3</p>
+    </div>
+<div class="row">
+    <h4 class="pinstall">Defining stages</h4>
+</div>
+    <p class="pinstall">A stage has a client component and a server component both of which has the following basic structure:</p>
+    <div class="installcomands">
+        <p><em id="red">let</em> stage <em id="red">=</em> {</p>
+        <p>&ensp; events: {</p>
+        <p>&ensp; &ensp; <em id="red">...</em> </p>
+        <p>&ensp; },</p>
+        <p>&ensp; commands: {</p>
+        <p>&ensp; &ensp; <em id="red">...</em> </p>
+        <p>&ensp; },</p>
+        <p>&ensp; options: {</p>
+        <p>&ensp; &ensp; <em id="red">...</em> <em id="comment">// options vary from server to client</em> </p>
+        <p>&ensp; },</p>
+        <p><em id="purple">setup</em> () {}, </p>
+        <p><em id="purple">teardown</em> () {}, </p>
+        <p>html <em id="comment">// CLIENT ONLY</em> </p>
+    </div>
+    <div class="row">
+        <h5 class="pinstall">Options</h5>
+    </div>
+    <p class="pinstall">The following options are available:</p>
+    <ul class="pinstall">
+        <li>duration: Duration in ms. If specified the stage will automatically end after duration. This can be done both on the server (force end after duration) or on the client (wait for all clients to finish before ending).</li>
+    </ul>
+    <div class="row">
+        <h5 class="pinstall">Events/Commands</h5>
+    </div>
+    <p class="pinstall">Events and commands work like regular events and commands except they are 'scoped' to the stage. They will only execute during the stage.</p>
+
+    <div class="row">
+        <h5 class="pinstall">Setup/Teardown</h5>
+    </div>
+    <p class="pinstall">
+        You can provide a setup and/or teardown handler both on the server and on the client. These will run when the stage starts/ends.
+        They receive the <em> monsterrServer</em> or <em>monsterrClient</em> instance as their only argument.
+    </p>
+    <div class="installcomands">
+        <p>{</p>
+        <p>&ensp; <em id="purple">setup</em> (monsterrServer <em id="comment">/* or client */)</em> { </p>
+        <p>&ensp; &ensp; <em id="red">...</em> </p>
+        <p>&ensp; }</p>
+        <p>&ensp; <em id="purple">teardown</em> (monsterrServer <em id="comment">/* or client */)</em> { </p>
+        <p>&ensp; &ensp; <em id="red">...</em> </p>
+        <p>&ensp; }</p>
+        <p>}</p>
+    </div>
+
+    <div class="row">
+        <h4 class="pinstall">Sequence</h4>
+    </div>
+    <p class="pinstall">To use your stages you need to build the sequence of stages that is to be your game. You have to do this for the server and for the client.</p>
+    <p class="pinstall">The server.js might have this:</p>
+    <div class="installcomands">
+        <p><em id="red">import</em> stage1 <em id="red">from</em> './stage1/server'  </p>
+        <p><em id="red">import</em> stage2 <em id="red">from</em> './stage2/server'  </p>
+        <br>
+        <p><em id="red">cosnt</em> <em id="command">stages</em> <em id="red">=</em> [ </p>
+        <p>&ensp; stage1,</p>
+        <p>&ensp; stage2</p>
+        <p>]</p>
+        <br>
+        <p><em id="purple">createServer</em>({ </p>
+        <p>&ensp; stages,</p>
+        <p>&ensp; <em id="red">...</em> </p>
+        <p>})</p>
+    </div>
+
+    <p class="pinstall">And the client.js should then have this:</p>
+    <div class="installcomands">
+        <p><em id="red">import</em> stage1 <em id="red">from</em> './stage1/client'  </p>
+        <p><em id="red">import</em> stage2 <em id="red">from</em> './stage2/client'  </p>
+        <br>
+        <p><em id="comment">/* Notice, same sequence as server */</em> </p>
+        <p><em id="red">cosnt</em> <em id="command">stages</em> <em id="red">=</em> [ </p>
+        <p>&ensp; stage1,</p>
+        <p>&ensp; stage2</p>
+        <p>]</p>
+        <br>
+        <p><em id="purple">createClient</em>({ </p>
+        <p>&ensp; stages,</p>
+        <p>&ensp; <em id="red">...</em> </p>
+        <p>})</p>
+    </div>
+
+    <div class="row">
+        <h4 class="pinstall">Sequence helpers</h4>
+    </div>
+        <p class="pinstall"><em>monsterr</em> includes a few helpers for use when defining your sequence of stages.</p>
+        <p class="pinstall">They are <em>repeat</em> (repeats a stage), <em>withDuration</em> (sets the duration option).</p>
+        <p class="pinstall">They can be used as follow:</p>
+    <div class="installcomands">
+        <p id="comment">// server.js</p>
+        <p><em id="red">import</em> { Stages } <em id="red">from</em> 'monsterr'</p>
+        <br>
+        <p><em id="red">import</em> stage1 <em id="red">from</em> './stage1/server'</p>
+        <p><em id="red">import</em> stage2 <em id="red">from</em> './stage2/server'</p>
+        <br>
+        <p><em id="red">const</em> <em id="command">stages</em> <em id="red">=</em> [</p>
+        <p>&ensp; Stages.<em id="purple">repeat</em>(stage1, <em id="command">10</em>), <em id="comment"> // repeat a stage</em> </p>
+        <p>&ensp; Stages.<em id="purple">withDuration</em>(stage2, <em id="command">10000</em>), <em id="comment"> // use stage but with different duration</em> </p>
+        <p>]</p>
+    </div>
+<div class="row">
+    <h4 class="pinstall">Example</h4>
+</div>
+    <p class="pinstall">
+        Here is a real-world example stage setup utilizing both <em>repeat</em> and <em>withDuration</em>:
+    </p>
+    <div class="installcomands">
+        <p id="comment">/* imports...*/</p>
+        <br>
+        <p><em id="red">const</em> <em id="command">stages</em> <em id="red">=</em> [ </p>
+        <p>&ensp; introStage,</p>
+        <p>&ensp; quizStage,</p>
+        <p>&ensp; Stages.<em id="purple">repeat</em>([ </p>
+        <p>&ensp; &ensp; Stages.<em id="purple">withDuration</em>(gameStage, settings.<em id="command">GAME_DURATION</em>), </p>
+        <p>&ensp; &ensp; resultStage</p>
+        <p>&ensp; ], settings.<em id="purple">GAME_ROUNDS</em>) </p>
+        <p>]</p>
+    </div>
+
+    <p class="pinstall" id="note">Note the use of a nested sequence of stages within <em>repeat</em>.</p>
+
+    <div class="row">
+        <h4 class="pinstall">Html Container</h4>
+    </div>
+    <p class="pinstall">
+        It is possible to add HTML to your stages. This can be useful if you have to present something better structured as HTML or if you want to take some inputs from the user.
+    </p>
+    <p class="pinstall">
+        You can create html files within your existing stage structure: ex.
+    </p>
+    <div class="installcomands">
+        <p><pre>&lt;// .../stage1/stage1.html &gt; </pre></p>
+        <p><pre>    &lt;div id="myDiv"&gt; </pre></p>
+        <p><pre>   &lt;h1 Hi! h1&gt; </pre></p>
+        <p><pre>  &lt;div&gt;</pre></p>
+    </div>
+
+<p class="pinstall">In your client you can use jQuery (or native DOM) to access and/or manipulate the html.</p>
+    <div class="installcomands">
+        <p id="comment">// .../stage1/client.js</p>
+        <p><em id="red">...</em> </p>
+        <p><em id="purple">$</em>('#myDiv').<em id="purple">html</em> <em id="comment">// get contents</em> </p>
+        <p><em id="purple">$</em>('#myDiv').<em id="purple">html</em>('overwrite contents')</p>
+    </div>
+
+    <div class="row">
+        <h4 class="pinstall">htmlContainerHeight</h4>
+    </div>
+    <p class="pinstall">
+        <em>htmlContainerHeight</em> defines the height of the html content. It is specified as a ratio of screen height.
+        By default <em>htmlContainerHeight</em> will be <em>0.3</em> (30% of height).
+    </p>
+    <ul class="pinstall">
+        <li><em>htmlContainerHeight = 0</em>: htmlContent is completely hidden.</li>
+        <li><em>htmlContainerHeight = 1</em>: htmlContent fills entire height (canvas will be hidden).</li>
+    </ul>
+    <p class="pinstall">
+        You can change the height per stage as mentioned above or you can set a different default when creating your client.
+    </p>
+<div class="installcomands">
+    <p id="comment">client.js</p>
+    <p><em id="red">...</em><em id="purple">createClient</em>({ </p>
+    <p>&ensp; options: {</p>
+    <p>&ensp; &ensp; htmlContainerHeight: <em id="command">0</em> <em id="comment">// hide html by default</em> </p>
+    <p>&ensp; }</p>
+    <p>})</p>
+</div>
+
+</div>

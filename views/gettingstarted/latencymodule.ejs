@@ -1,5 +1,5 @@
-<% include partials/header.ejs %>
-<% include partials/sidebar.ejs%>
+<% include ../partials/header.ejs %>
+<% include ../partials/sidebar.ejs%>
 <div class="container">
     <div class="row">
         <div class="block m-auto txt-center">
@@ -19,25 +19,25 @@
 
     <h4 class="pinstall">Setup</h4>
     <ol class="ollatency">
-  <li>
+  <li id="latencyid">
         The first step is to install chart.js module in the terminal
 </li>
     <div class="installcomands"><p> npm install chart.js</p></div>
 
-       <li>
+       <li id="latencyid">
            In server.js file, you will need to import the Latency Module. The Module needs to be declared as a command before the server is declared.
        </li>
-        <div class="installcomands"><p> import {LatencyModule} from './src/modules/LatencyModule'</p>
-                                    <p>  LatencyModule.addServerCommands(commands)</p>
+        <div class="installcomands"><p><em id="red">import</em> {LatencyModule} <em id="red">from</em> './src/modules/LatencyModule'</p>
+                                    <p>  LatencyModule.<em id="command">addServerCommands</em>(commands)</p>
         </div>
 
-        <li>
+        <li id="latencyid">
             In admin-client.js file, you need to import the Latency Module. It is declared between events and before the server is created.
             The last step where you need declare the module, is when the admin-client is declared.
         </li>
-        <div class="installcomands"><p> import {LatencyModule} from './src/modules/LatencyModule'</p>
-            <p>  LatencyModule.addAdminClientEvents(events)</p>
-            <p> LatencyModule.setupClient(admin)</p>
+        <div class="installcomands"><p><em id="red">import</em> {LatencyModule} <em id="red">from</em> './src/modules/LatencyModule'</p>
+            <p>  LatencyModule.<em id="command">addAdminClientEvents</em>(events)</p>
+            <p> LatencyModule.<em id="command">setupClient</em>(admin)</p>
         </div>
     </ol>
     <h4 class="pinstall">Overview</h4>
@@ -50,4 +50,4 @@
 
 </div>
 
-<% include partials/footer %>
+<% include ../partials/footer.ejs %>

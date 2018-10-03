@@ -1,0 +1,47 @@
+<% include ../partials/header.ejs %>
+<% include ../partials/sidebar.ejs %>
+<div class="container">
+    <div class="row">
+        <div class="block m-auto txt-center">
+            <h1 class="abouth1">Canvas</h1>
+        </div>
+    </div>
+    <hr class="my-4" id="hrinstall">
+    <p class="pinstall">
+        On the client you get access to the <em>canvas</em> object, simply accessed with <em> monsterr.getCanvas()</em>. Furthermore another very important
+        object is available: <em>fabric</em>. Fabric.js is the framework powering the canvas. Through the <em>fabric</em> object you can access the full
+        suite of Fabric.js features. Use the <em>fabric</em> object to create objects that you can then add to the canvas. See
+        <a href="http://fabricjs.com/">Fabric.js</a>, their <a href="http://fabricjs.com/articles/">guide</a> or their <a href="http://fabricjs.com/docs/">documentation</a> for more information on how to use the fabric object, how to create, add, remove
+        and manipulate objects on the canvas. Fabric.js also comes with a powerful <a href="http://fabricjs.com/fabric-intro-part-2#events">event</a> system that allows you to attach event
+        handlers to objects and thereby record user actions and react on them.
+    </p>
+    <div class="row">
+        <h4 class="pinstall">Options</h4>
+    </div>
+    <p class="pinstall">The available canvas related options (and their defaults) are:</p>
+    <div class="installcomands">
+        <p>options = {</p>
+        <p>&ensp; staticCanvas: <em id="command">false</em>, <em id="comment">// objects on the canvas are dynamic and can be moved, resized and more</em> </p>
+        <p>&ensp;   canvasBackgroundColor: '#999' <em id="comment">// the canvas is per default grey</em> </p>
+        <p>}</p>
+    </div>
+    <div class="row">
+        <h4 class="pinstall">Example</h4>
+    </div>
+    <p class="pinstall" id="note">The following is an extremely simple example. We refer to the fabric documentation for further use.</p>
+    <div class="installcomands">
+        <p id="comment">// On client (prob. inside stage > setup())</p>
+        <br>
+        <p>client</p>
+        <p>&ensp; .<em id="purple">getCanvas</em>() </p>
+        <p>&ensp; .<em id="command">add</em>( </p>
+        <p>&ensp; &ensp; <em id="red">new</em> <em id="purple">fabric.Triangle</em>({ </p>
+        <p>&ensp; &ensp; &ensp;  width: <em id="command">50</em>, </p>
+        <p>&ensp; &ensp; &ensp;  height: <em id="command">50</em>, </p>
+        <p>&ensp; &ensp; &ensp;  fill: 'red', </p>
+        <p>&ensp; &ensp; &ensp;  left: <em id="command">200</em>, </p>
+        <p>&ensp; &ensp; &ensp;  top: <em id="command">500</em> </p>
+        <p>&ensp; &ensp; })</p>
+        <p>)</p>
+    </div>
+</div>

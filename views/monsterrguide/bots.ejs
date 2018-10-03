@@ -1,0 +1,87 @@
+<% include ../partials/header.ejs %>
+<% include ../partials/sidebar.ejs %>
+<div class="container">
+    <div class="row">
+        <div class="block m-auto txt-center">
+            <h1 class="abouth1">Bots</h1>
+        </div>
+    </div>
+    <hr class="my-4" id="hrinstall">
+    <p class="pinstall">
+        It's possible to write bots to participate in <em>monsterr</em> games. Bots connect with websocket and will be treated like
+        regular clients by the game.
+    </p>
+    <div class="row">
+        <h4 class="pinstall">Requirements</h4>
+    </div>
+    <p class="pinstall">You can write bots in any language with a websocket client.</p>
+    <p class="pinstall"><em>create-monsterr-game</em> includes a barebones example of a bot written in JS.</p>
+    <div class="row">
+        <h5 class="pinstall">How to</h5>
+    </div>
+    <p class="pinstall">
+        hen writing a bot you basically JUST receive events and send events. That's it. You can of course use any events you define yourself, but you also want to use some builtin events. Because the interface is so low-level you will not have the standard events available as exposed constants (unless in JS where you could import them).
+    </p>
+    <p class="pinstall">Therefore we include a list of the builtin events here:</p>
+    <div class="row">
+        <h5 class="pinstall">Builtin events</h5>
+    </div>
+    <div class="row">
+        <h6 class="pinstall">Client lifecycle</h6>
+    </div>
+    <div class="installcomands">
+        <p>'@monsterr/CLIENT_CONNECTED'</p>
+        <p>'@monsterr/CLIENT_RECONNECTED'</p>
+        <p>'@monsterr/CLIENT_DISCONNECTED'</p>
+    </div>
+
+    <div class="row">
+        <h6 class="pinstall">Game lifecycle</h6>
+    </div>
+    <div class="installcomands">
+        <p>'@monsterr/START_STAGE'</p>
+        <p>'@monsterr/END_STAGE'</p>
+        <p>'@monsterr/STAGE_FINISHED'</p>
+        <p>'@monsterr/GAME_OVER'</p>
+    </div>
+
+    <div class="row">
+        <h6 class="pinstall">Misc.</h6>
+    </div>
+    <div class="installcomands">
+        <p>'@monsterr/LOG' <em id="comment">// client logs something</em></p>
+        <p>'@monsterr/MESSAGE' <em id="comment">// client sends message</em></p>
+    </div>
+
+    <div class="row">
+        <h4 class="pinstall">Example(JS)</h4>
+    </div>
+    <p class="pinstall">Here's a simple bot, but see <em>create-monsterr-game</em> for more info.</p>
+    <div class="installcomands">
+        <p id="comment">/**</p>
+        <p id="comment">* Bot interface</p>
+        <p id="comment">*</p>
+        <p id="comment">* Handle events to implement functionality.</p>
+        <p id="comment">*/</p>
+        <br>
+        <p>const io = require('socket.io-client')</p>
+        <p>const socket = io('http://localhost:3000/clients').connect()</p>
+    <br>
+        <p>socket.on('connect', () => console.log('connected'))</p>
+        <p>socket.on('disconnect', () => console.log('disconnected'))</p>
+        <p>socket.on('error', err => console.log(err))</p>
+        <p>socket.on('event', /* Handle events */)</p>
+        <br>
+        <p id="comment">// Events are of shape:</p>
+        <p>{</p>
+        <p>&ensp; type: String,</p>
+        <p>&ensp; payload: anuy</p>
+        <p>}</p>
+        <br>
+        <p id="comment">// ex. (start stage 2)</p>
+        <p>{</p>
+        <p>&ensp; type: '@monsterr/START_STAGE',</p>
+        <p>&ensp; payload: 2</p>
+        <p>}</p>
+    </div>
+</div>

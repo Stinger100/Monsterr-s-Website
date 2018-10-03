@@ -1,5 +1,5 @@
-<% include partials/header.ejs %>
-<% include partials/sidebar.ejs%>
+<% include ../partials/header.ejs %>
+<% include ../partials/sidebar.ejs%>
 <div class="container">
     <div class="row">
         <div class="block m-auto txt-center">
@@ -17,21 +17,22 @@
     </div>
     <h4 class="pinstall">Setup</h4>
     <ol class="ollatency">
-        <li>The first step is installing the via.js module in the terminal</li>
+        <li id="latencyid">The first step is installing the via.js module in the terminal</li>
         <div class="installcomands"><p> npm install vis</p></div>
 
-        <li>Now, you need to import the module in server.js and to move network out of createServer in order to declare it
+        <li id="latencyid">Now, you need to import the module in server.js and to move network out of createServer in order to declare it
          as a local variable. Then, you need to add the server commands to the Network Module.</li>
-    <div class="installcomands"><p> import {NetworkModule} from './src/modules/NetworkModule'</p>
-    <p> let network = Network.pairs(8)</p>
-        <p> NetworkModule.addServerCommands(commands, network)</p>
+    <div class="installcomands">
+        <p><em id="red">import</em> {NetworkModule} <em id="red">from</em> './src/modules/NetworkModule'</p>
+        <p><em id="red">let</em> network = Network.pairs(8)</p>
+        <p> NetworkModule.<em id="command">addServerCommands</em>(commands, network)</p>
     </div>
-    <li>On the last step, you need to add the import module in admin-client.js file. The module is declared between events and before the
+    <li id="latencyid">On the last step, you need to add the import module in admin-client.js file. The module is declared between events and before the
         server is created. Add the setupClient after the admin-client is created.
     </li>
-    <div class="installcomands"><p> import {NetworkModule} from './src/modules/NetworkModule'</p>
-                                <p> NetworkModule.addAdminClientEvents(events)</p>
-                                <p> NetworkModule.setupClient(admin)</p>
+    <div class="installcomands"><p><em id="red">import</em> {NetworkModule} <em id="red">from</em> './src/modules/NetworkModule'</p>
+                                <p> NetworkModule.<em id="command">addAdminClientEvents</em>(events)</p>
+                                <p> NetworkModule.<em id="command">setupClient</em>(admin)</p>
     </div>
     </ol>
     <h4 class="pinstall">Overview</h4>
@@ -41,4 +42,4 @@
     </p>
 
 </div>
-<% include partials/footer %>
+<% include ../partials/footer.ejs %>

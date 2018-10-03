@@ -1,5 +1,5 @@
-<% include partials/header.ejs %>
-<% include partials/sidebar.ejs%>
+<% include ../partials/header.ejs %>
+<% include ../partials/sidebar.ejs%>
 <div class="container">
     <div class="row">
         <div class="block m-auto txt-center">
@@ -34,54 +34,75 @@
 
     <h4 class="pinstall">Setup</h4>
     <ol class="ollatency">
-        <li>
+        <li id="latencyid">
             Install the db from the terminal.
         </li>
         <div class="installcomands"><p> npm install lowdb</p></div>
-        <li> Copy the db folder to you project.</li>
+        <li id="latencyid"> Copy the db folder to you project.</li>
         <div class="installcomands"><p> copy ./src/database/folder </p></div>
-        <li> Copy the survey folder to your project and give it a suggestive name.</li>
+        <li id="latencyid"> Copy the survey folder to your project and give it a suggestive name.</li>
         <div class="installcomands"><p> copy ./src/stages/survey/ </p></div>
-        <li>Now, you need to import the database, the survey and commands in server.js file.</li>
-        <div class="installcomands"><p> import {DatabaseHandler} from './src/database/DatabaseHandler' </p>
-                                    <p> import survey from './src/stages/survey/server/server'</p>
-                                    <p> let commands = {
-                                        'reqJSON': (server, clientId) => {
-                                        let json = DatabaseHandler.exportAsJSON()
-                                        server.send('resJSON', json).toAdmin()
-                                        },</p>
-                                     <p> 'reqCSV': (server, clientId) => {
-                                          let csv = DatabaseHandler.exportAsCSV()
-                                         server.send('resCSV', csv).toAdmin()
-                                         }  </p>
+        <li id="latencyid">Now, you need to import the database, the survey and commands in server.js file.</li>
+        <div class="installcomands"><p><em id="red">import</em> {DatabaseHandler} <em id="red">from</em> './src/database/DatabaseHandler' </p>
+                                    <p><em id="red">import</em> survey <em id="red">from</em> './src/stages/survey/server/server'</p>
+            <p><em id="red">let</em>  commands = {
+            <p><em id="purple">&ensp; 'reqJSON'</em> : (server, clientId) <em id="red">=></em> {</p>
+                                  <p><em id="red">&ensp;&ensp; let</em> json = DatabaseHandler.<em id="purple">exportAsJSON()</em>
+            <p>&ensp;&ensp; server.<em id="command">send</em>('resJSON', json).<em id="command">toAdmin()</em></p>
+                                      <p>  },</p>
+
+            <p><em id="red">let</em>  commands = {
+            <p><em id="purple">&ensp; 'reqCSV'</em> : (server, clientId) <em id="red">=></em> {</p>
+            <p><em id="red">&ensp;&ensp; let</em> csv = DatabaseHandler.<em id="purple">exportAssCSV()</em>
+            <p>&ensp;&ensp; server.<em id="command">send</em>('resCSV', csv).<em id="command">toAdmin()</em></p>
+            <p>  },</p>
+
         </div>
-        <li>In the admin-client.hmtl file, you will need to add the html button for json and csv files. In admin-client.js you need to add the listener
+        <li id="latencyid">In the admin-client.hmtl file, you will need to add the html button for json and csv files. In admin-client.js you need to add the listener
             and the events.
         </li>
-        <div class="installcomands"><p> $('#admin-button-download-json').mouseup(e => {
-                e.preventDefault()
-                admin.sendCommand('reqJSON')
-                })</p>
-        <p> $('#admin-button-download-csv').mouseup(e => {
-            e.preventDefault()
-            admin.sendCommand('reqCSV')
-            })</p>
-        <p> let events = {
-            'resJSON': (admin, json) => {
-            let fileName = 'monsterr-modules_' + Date.now() + '.csv'
-            let data = JSON.stringify(json)
-            let url = window.URL.createObjectURL(new Blob([data], {type: 'text/json'}))
-            var a = document.createElement('a')
-            document.body.appendChild(a)
-            a.style = 'display: none'
-            a.href = url
-            a.download = fileName
-            a.click()
-            window.URL.revokeObjectURL(url)
-            },</p>
+        <div class="installcomands">
+            <p><em id="purple">$</em>('#admin-button-download-json').<em id="purple">mouseup</em>(e <em id="red">=></em> { </p>
+            <p>&ensp;  e.<em id="command">preventDefault</em>()</p>
+            <p>&ensp;  admin.<em id="purple">sendCommand</em>('reqJSON')</p>
+             <p>   })</p>
+            <p><em id="purple">$</em>('#admin-button-download-csv').<em id="purple">mouseup</em>(e <em id="red">=></em> { </p>
+            <p>&ensp;  e.<em id="command">preventDefault</em>()</p>
+            <p>&ensp;  admin.<em id="purple">sendCommand</em>('reqCSV')</p>
+            <p>   })</p>
+
+            <p> let events = { </p>
+            <p>&ensp; <em id="purple">'resJSON'</em>: (admin, json) <em id="red">=></em> { </p>
+            <p>&ensp;&ensp; <em id="red">let</em> fileName = 'monsterr-modules_'<em id="red">+</em> <em id="command">Date</em><em id="purple">.now</em>() <em id="red">+</em> '.csv'</p>
+            <p>&ensp;&ensp; <em id="red">let</em>  data = <em id="purple">JSON.stringify</em>(json)</p>
+            <p>&ensp;&ensp; <em id="red">let</em> url = <em id="command">window.URL</em><em id="purple">.createObjectURL</em>(<em id="red">new</em> <em id="purple">Blob</em>([data], {type: 'text/json'}))</p>
+            <p>&ensp;&ensp; <em id="red">var</em> a = <em id="command">document.createElement</em>('a')</p>
+            <p>&ensp;&ensp; <em id="command">document.body.appendChild</em>(a)</p>
+            <p>&ensp;&ensp; a.<em id="command">style</em> = 'display: none'</p>
+            <p>&ensp;&ensp; a.<em id="command">href</em> = url</p>
+            <p>&ensp;&ensp; a.download = fileName</p>
+            <p>&ensp;&ensp; a.<em id="command">click</em>()</p>
+            <p>&ensp;&ensp; <em id="command">window.URL</em><em id="purple">.revokeObjectURL</em>(url)
+            <p>&ensp; },</p>
+
+            <p>&ensp; <em id="purple">'resCSV'</em>: (admin, csv) <em id="red">=></em> { </p>
+            <p>&ensp;&ensp; <em id="red">let</em> fileName = 'monsterr-modules_'<em id="red">+</em> <em id="command">Date</em><em id="purple">.now</em>() <em id="red">+</em> '.csv'</p>
+            <p>&ensp;&ensp; <em id="red">let</em>  data = <em id="purple">JSON.stringify</em>(json)</p>
+            <p>&ensp;&ensp; <em id="red">let</em> url = <em id="command">window.URL</em><em id="purple">.createObjectURL</em>(<em id="red">new</em> <em id="purple">Blob</em>([data], {type: 'text/json'}))</p>
+            <p>&ensp;&ensp; <em id="red">var</em> a = <em id="command">document.createElement</em>('a')</p>
+            <p>&ensp;&ensp; <em id="command">document.body.appendChild</em>(a)</p>
+            <p>&ensp;&ensp; a.<em id="command">style</em> = 'display: none'</p>
+            <p>&ensp;&ensp; a.<em id="command">href</em> = url</p>
+            <p>&ensp;&ensp; a.download = fileName</p>
+            <p>&ensp;&ensp; a.<em id="command">click</em>()</p>
+            <p>&ensp;&ensp; <em id="command">window.URL</em><em id="purple">.revokeObjectURL</em>(url)
+            <p>&ensp; },</p>
+            <p>}</p>
         </div>
+        <li id="latencyid">Generate your own survey.json file from <a href="https://surveyjs.io/Survey/Builder" >Survey Builder</a> and add it to the client folder of the stage.</li>
+       <li id="latencyid">Edit the client.html, thanks.html as you want in order to get the desiret visual experience of the survey.</li>
     </ol>
     <h4 class="pinstall">Overview</h4>
     <p class="pinstall">You are more than welcomed to press on <a href="https://github.com/asbjoern1982/monsterr-modules/tree/master/src/database">
-            Github link</a>. You can look into stages/survey folder to see the client and server files,  </p>
+            Github link</a>. You can look into stages/survey folder to see the client and server files.  </p>
 </div>
