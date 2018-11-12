@@ -7,3 +7,33 @@
         </div>
     </div>
     <hr class="my-4" id="hrinstall">
+    <p class="pinstall">In order to make unit testing, you would need to download and install the npm test package.
+    </p>
+    <div class="installcomands">
+        <p>npm install test</p>
+        <p>npm test</p>
+        <p>copy unittests into: /test/folder</p>
+    </div>
+    <p class="pinstall">
+        The following code is part of a unit test for the chess game made with Monsterr Framework. The unit is tesing the pawn and the movement
+        of the chess pieces.
+    </p>
+    <div class="installcomands">
+        <p><em id="purple">test</em>('en passent', () <em id="red">=></em> {</p>
+        <p>&ensp; board.<em id="command">move</em>('w', {x: <em id="command">4</em>, y:  <em id="command">6</em>},
+            {x:  <em id="command">4</em>, y: <em id="command">4</em>}) <em id="comment">// moves 2 steps forward</em> </p>
+        <p>&ensp; board.<em id="command">move</em>('b', {x: <em id="command">0</em>, y:  <em id="command">1</em>},
+            {x:  <em id="command">0</em>, y: <em id="command">2</em>}) <em id="comment">// black moves whatever</em> </p>
+        <p>&ensp; board.<em id="command">move</em>('w', {x: <em id="command">4</em>, y:  <em id="command">4</em>},
+            {x:  <em id="command">4</em>, y: <em id="command">3</em>}) <em id="comment">// moves 1 forward</em> </p>
+        <p>&ensp; <em id="purple">expect</em>(board.<em id="command">move</em>('b', {x: <em id="command">3</em>, y: <em id="command">1</em>},
+            {x: <em id="command">3</em>, y: <em id="command">3</em>})).<em id="purple">toBe</em>('d7-d5') <em id="comment">// 2 steps</em> </p>
+        <p>&ensp; <em id="purple">expect</em>(board.<em id="command">move</em>('w', {x: <em id="command">4</em>, y: <em id="command">3</em>},
+            {x: <em id="command">5</em>, y: <em id="command">2</em>})).<em id="purple">toBeUndefined()</em> <em id="comment">// wrong way!!!</em> </p>
+        <p>&ensp; <em id="purple">expect</em>(board.<em id="command">move</em>('w', {x: <em id="command">4</em>, y: <em id="command">3</em>},
+            {x: <em id="command">3</em>, y: <em id="command">2</em>})).<em id="purple">toBe</em>('e5-d6') <em id="comment">// en passent</em> </p>
+        <p>&ensp; <em id="purple">expect</em>(board.<em id="purple">getBoard</em>()[<em id="command">3</em>][<em id="command">3</em>].<em id="purple">toBe</em>
+        (' ') <em id="comment">// check that the black pawn is gone</em> </p>
+        <p>})</p>
+    </div>
+</div>

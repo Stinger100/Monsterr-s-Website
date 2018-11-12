@@ -3,7 +3,79 @@
 <div class="container">
     <div class="row">
         <div class="block m-auto txt-center">
-            <h1 class="abouth1">Setup a basic game</h1>
+            <h1 class="abouth1">Setup a basic game: Monsterr Chess</h1>
         </div>
+    </div>
+    <hr class="my-4" id="hrinstall">
+    <p class="pinstall">
+        Basic example game for the monsterr framework. This game uses very basic communication as it sends the complete gamestate on every move. Futher more this project illustrates a couple of other useful techniques.
+    </p>
+
+    <div class="row">
+        <h4 class="pinstall">Setup</h4>
+    </div>
+    <p class="pinstall">For starting the game automatical when 2 players has connected the root server.js file has the following event:</p>
+    <div class="installcomands">
+    <p>[Event.<em id="command">CLIENT_CONNECTED</em>] (server, clientId) {</p>
+         <p>&ensp; playerCount<em id="red">++</em> </p>
+         <p>&ensp; <em id="red">if</em> (playerCount <em id="red">===</em> 2) { </p>
+         <p>&ensp; &ensp; server.<em id="command">start</em>() </p>
+         <p>&ensp; }</p>
+        <p>}</p>
+   </div>
+    <p class="pinstall">
+        The stage-server.js file keeps the connected clients in an array <em>clients.</em>
+    </p>
+    <p class="pinstall">
+        When a game has started the server needs to know when a client is ready to receive the boardstate and who is what color. Therefor when a client is fully loaded it sends a "clientReady" message to the server, the client.js in the gamestage has:
+    </p>
+    <div class="installcomands">
+        <p><em id="purple">setup</em>:(client) <em id="red">=></em> {</p>
+        <p>&ensp; client.<em id="command">send</em>('clientReady')</p>
+        <p>}</p>
+    </div>
+    <p class="pinstall">
+        The server keeps a count of amount of clients that have reported ready and when everyone is ready, it creates the board and randomize the order of the clients (clients[0] is white and goes first).
+    </p>
+    <div class="installcomands">
+       <p>'<em id="purple">clientReady</em>': (server, clientId) <em id="red">=></em> { </p>
+        <p>&ensp; readyCount<em id="red">++</em> </p>
+        <p>&ensp; <em id="red">if</em> (readyCount <em id="red">===</em> clients.<em id="command">length</em>) { </p>
+        <p>&ensp; &ensp; <em id="comment">// randomize color and tell each client what color their are</em> </p>
+        <p>&ensp; &ensp; <em id="red">if</em> (<em id="command">Math.random</em>() <em id="red"><</em> <em id="command">0.5</em>) { </p>
+        <p>&ensp; &ensp; &ensp; <em id="red">let</em> tempClientId = clients[<em id="command">0</em>] </p>
+        <p>&ensp; &ensp; &ensp; clients[<em id="command">0</em>] = clients[<em id="command">1</em>]</p>
+        <p>&ensp; &ensp; &ensp; clients[<em id="command">1</em>] = tempClientId</p>
+        <p>&ensp; &ensp; }</p>
+        <p>&ensp; &ensp; server.<em id="command">send</em>('color', 'white').<em id="purple">toClient</em>(clients[<em id="command">0</em>]) </p>
+        <p>&ensp; &ensp; server.<em id="command">send</em>('color', 'black').<em id="purple">toClient</em>(clients[<em id="command">1</em>]) </p>
+        <br>
+        <p>&ensp; &ensp; <em id="comment">// inform the clients that the game is ready and send the board</em> </p>
+        <p>&ensp; &ensp; <em id="red">let</em> tempBoard = board.<em id="purple">getBoard</em>() </p>
+        <p>&ensp; &ensp; server.<em id="command">send</em>('board', tempBoard).<em id="purple">toAll</em>() </p>
+        <p>&ensp; &ensp; server.<em id="command">send</em>('board', tempBoard).<em id="purple">toAdmin</em>() </p>
+        <p>&ensp; }</p>
+        <p>}</p>
+    </div>
+    <div class="row">
+        <h4 class="pinstall">Communication</h4>
+    </div>
+    <p class="pinstall">When a player has moved a piece on the board, the client sends the move to the player. The server then makes the move if it is valid and sends the new boardstate to all clients.</p>
+    <div class="installcomands">
+        <p><em id="red">let</em> move = board.<em id="command">move</em>(</p>
+        <p>&ensp; (clients[<em id="command">0</em>] <em id="red">===</em> clientId) <em id="red">?</em> 'w' <em id="red">:</em> 'b', </p>
+        <p>&ensp; payload.from,</p>
+        <p>&ensp; payload.to</p>
+        <p>)</p>
+        <p>server.<em id="command">send</em>('board', board.<em id="purple">getBoard</em>()).<em id="purple">toAll</em>() </p>
+        <p><em id="red">if</em> (move) { </p>
+        <p>&ensp; logger.<em id="purple">log</em>(move) </p>
+        <p>&ensp;  <em id="red">let</em> winner - board.<em id="purple">winner</em>() </p>
+        <p>&ensp; <em id="red">if</em> (winner) { </p>
+        <p>&ensp; &ensp; <em id="red">let</em> winnertext = 'winner is ' <em id="red">+</em> ((winner <em id="red">===</em> 'w') <em id="red">?</em> 'white' <em id="red">:</em> 'black')</p>
+        <p>&ensp; &ensp; server.<em id="command">send</em>('gameover', winnertext).<em id="purple">toAll</em>()</p>
+        <p>&ensp; }</p>
+        <p>}</p>
+
     </div>
 </div>

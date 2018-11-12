@@ -3,7 +3,50 @@
 <div class="container">
     <div class="row">
         <div class="block m-auto txt-center">
-            <h1 class="abouth1">Setup an advanced game</h1>
+            <h1 class="abouth1">Setup an advanced game: Monsterr Tic Tac Toe</h1>
         </div>
+    </div>
+    <hr class="my-4" id="hrinstall">
+    <p class="pinstall">Example game for the monsterr framework.</p>
+
+   <p class="pinstall"> Tic-tac-toe goes back to the ancient egypt and was played all over the roman empire, it's a true classic. No gaming framework would be complete without an example of this game.</p>
+<div class="row">
+    <h4 class="pinstall">Communication</h4>
+</div>
+    <p class="pinstall">
+        In this example game, a more complicated model where only a single move is sent over the network compared to the complete boardstate in monsterr-chess.
+    </p>
+    <p class="pinstall">
+        The server and the client shares a model with a board-object with a number of functions
+    </p>
+    <div class="installcomands">
+        <p><em id="red">return</em> {</p>
+        <p>&ensp; move,</p>
+        <p>&ensp; isMoveLegal,</p>
+        <p>&ensp; getBoard,</p>
+        <p>&ensp; resetBoard,</p>
+        <p>&ensp; setBoard,</p>
+        <p>}</p>
+    </div>
+    <p class="pinstall">When a player picks a position it is sent to the server
+    </p>
+    <div class="installcomands">
+        <p>client.<em id="purple">getCanvas</em>().<em id="purple">on</em>('mouse:down', (<em id="command">event</em>) <em id="red">=></em> {</p>
+        <p>&ensp; <em id="red">let</em> position = view.<em id="purple">getIndex</em>({x: <em id="command">event</em>.clientX, y: <em id="command">event</em>.e.clientY}) </p>
+        <p>&ensp; <em id="red">if</em> (position <em id="red"></em> <em id="red">-</em><em id="command">1</em>) { </p>
+        <p>&ensp; &ensp; <em id="red">if</em> (board.<em id="purple">isMoveLegal</em>(iAm, position)) {</p>
+        <p>&ensp; &ensp; &ensp; client.<em id="command">send</em>('move', position) </p>
+        <p>&ensp; &ensp; }</p>
+        <p>&ensp; }</p>
+        <p>})</p>
+    </div>
+    <p class="pinstall">
+        The server then validates it, moves the piece and check for gameover conditions, and informs the clients. The clients then updates it own model with the move and redraws the canvas.
+    </p>
+    <div class="installcomands">
+        <p>'<em id="purple">move</em>': (client, move) <em id="red">=></em> {</p>
+        <p>&ensp; board.<em id="command">move</em>(move.piece, move.position) </p>
+        <p>&ensp; view.<em id="purple">draw</em>(client.<em id="purple">getCanvas</em>(), board.<em id="purple">getBoard()</em>, boardSize) </p>
+        <p>},</p>
     </div>
 </div>

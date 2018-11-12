@@ -1,1 +1,95 @@
 <% include partials/header.ejs %>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="text-center">
+
+            <img src="../style/img/faq.jpg" class="img-fluid" id="faqimg" alt="faq">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="block m-auto txt-center">
+            <h2>How can we help you?</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-5">
+            <h4 id="faqh4">About Mosterr Framework</h4>
+
+        <ul id="myUL">
+            <li><span class="caret"><strong>This is the first question.</strong></span>
+               <ul class="nested">
+                   <li>This is the answer.</li>
+               </ul>
+            </li>
+        </ul>
+            <ul id="myUL">
+                <li><span class="caret"><strong>This is the second question.</strong></span>
+                    <ul class="nested">
+                        <li>This is the answer.</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul id="myUL">
+                <li><span class="caret"><strong>This is the third question.</strong></span>
+                    <ul class="nested">
+                        <li>This is the answer.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+            <div class="text-center">
+            <div class="vl"></div>
+            </div>
+        </div>
+
+        <div class="col-5 col-md-5">
+            <h4 id="faqh4">Installing Monsterr Framework</h4>
+
+            <ul id="myUL">
+                <li><span class="caret"><strong>This is the first question.</strong></span>
+                    <ul class="nested">
+                        <li>This is the answer.</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul id="myUL">
+                <li><span class="caret"><strong>This is the second question.</strong></span>
+                    <ul class="nested">
+                        <li>This is the answer.</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul id="myUL">
+                <li><span class="caret"><strong>This is the third question.</strong></span>
+                    <ul class="nested">
+                        <li>This is the answer.</li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+<!-- faq page: displaying answers -->
+<script>
+    var toggler = document.getElementsByClassName("caret");
+    var i;
+
+    for (i = 0; i < toggler.length; i++) {
+        toggler[i].addEventListener("click", function() {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+        });
+    }
+</script>
+<% include partials/footer.ejs %>
+
