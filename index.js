@@ -1,7 +1,7 @@
 require('dotenv').config();
 let express = require("express");
 let app = express();
-let port = process.env.PORT || 3000;
+let port = process.env.PORT || 8080;
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 const bodyParser = require('body-parser');
